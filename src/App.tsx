@@ -70,7 +70,9 @@ export default function AmbientMixer() {
           className="px-4 py-2 bg-blue-500 text-white rounded mb-2 mt-2"
           onClick={() => loadAndPlaySound("birds", birds, 0.5)}
         >
-          Play
+          <svg className="w-[36px] h-[36px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 18V6l8 6-8 6Z" />
+          </svg>
         </button>
         <input
           type="range"
