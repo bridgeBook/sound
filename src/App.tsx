@@ -10,7 +10,9 @@ type Sound = {
 export default function AmbientMixer() {
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [sounds, setSounds] = useState<Record<string, Sound>>({});
+  const [birdTogle, setBirdTogle] = useState<boolean>(true)
   const [rainTogle, setRainTogle] = useState<boolean>(true)
+
 
   useEffect(() => {
     const ctx = new AudioContext();
@@ -76,12 +78,12 @@ export default function AmbientMixer() {
             onChange={(e) => setVolume("birds", parseFloat(e.target.value))}
           />
           <button
-            className="px-4 bg-slate-500 text-white rounded-full ml-2"
+            className={birdTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
             onClick={() => loadAndPlaySound("birds", birds, 0.5)}>
             <span className="material-icons py-2">play_arrow</span>
           </button>
           <button
-            className="px-4 bg-slate-500 text-white rounded-full ml-2"
+            className={birdTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
             onClick={() => stopSound("birds")}
           >
             <span className="material-icons py-2">stop</span>
@@ -97,12 +99,12 @@ export default function AmbientMixer() {
             onChange={(e) => setVolume("rain", parseFloat(e.target.value))}
           />
           <button
-            className="px-4 bg-slate-500 text-white rounded-full ml-2"
+            className={rainTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
             onClick={() => loadAndPlaySound("rain", rain, 0.5)}>
             <span className="material-icons py-2">play_arrow</span>
           </button>
           <button
-            className="px-4 bg-slate-500 text-white rounded-full ml-2"
+            className={rainTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
             onClick={() => stopSound("rain")}
           >
             <span className="material-icons py-2">stop</span>
