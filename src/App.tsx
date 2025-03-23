@@ -10,6 +10,7 @@ type Sound = {
 export default function AmbientMixer() {
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [sounds, setSounds] = useState<Record<string, Sound>>({});
+  const [rainTogle, setRainTogle] = useState<boolean>(true)
 
   useEffect(() => {
     const ctx = new AudioContext();
@@ -66,13 +67,8 @@ export default function AmbientMixer() {
       <div className="p-40">
         <h1 className="text-xl font-bold mb-4">Ambient Sound Mixer</h1>
 
-        <div>
+        <div className="flex">
           {/* 鳥の音 */}
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded mb-2"
-            onClick={() => loadAndPlaySound("birds", birds, 0.5)}>
-            <span className="material-icons">play_arrow</span>
-          </button>
           <input
             type="range"
             min="0" max="1" step="0.01"
@@ -80,21 +76,20 @@ export default function AmbientMixer() {
             onChange={(e) => setVolume("birds", parseFloat(e.target.value))}
           />
           <button
-            className="px-4 py-2 bg-red-500 text-white rounded ml-2"
+            className="px-4 bg-slate-500 text-white rounded-full ml-2"
+            onClick={() => loadAndPlaySound("birds", birds, 0.5)}>
+            <span className="material-icons py-2">play_arrow</span>
+          </button>
+          <button
+            className="px-4 bg-slate-500 text-white rounded-full ml-2"
             onClick={() => stopSound("birds")}
           >
-            Stop
+            <span className="material-icons py-2">stop</span>
           </button>
         </div>
 
-        <div>
-          <span className="text-sm text-gray-600"></span>
-          {/* 雨の音 */}
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded mb-2"
-            onClick={() => loadAndPlaySound("rain", rain, 0.5)}
-          >Play
-          </button>
+        <div className="flex mt-4">
+          {/* 鳥の音 */}
           <input
             type="range"
             min="0" max="1" step="0.01"
@@ -102,10 +97,15 @@ export default function AmbientMixer() {
             onChange={(e) => setVolume("rain", parseFloat(e.target.value))}
           />
           <button
-            className="px-4 py-2 bg-red-500 text-white rounded ml-2"
+            className="px-4 bg-slate-500 text-white rounded-full ml-2"
+            onClick={() => loadAndPlaySound("rain", rain, 0.5)}>
+            <span className="material-icons py-2">play_arrow</span>
+          </button>
+          <button
+            className="px-4 bg-slate-500 text-white rounded-full ml-2"
             onClick={() => stopSound("rain")}
           >
-            Stop
+            <span className="material-icons py-2">stop</span>
           </button>
         </div>
       </div>
