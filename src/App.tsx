@@ -10,9 +10,8 @@ type Sound = {
 export default function AmbientMixer() {
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [sounds, setSounds] = useState<Record<string, Sound>>({});
-  const [birdTogle, setBirdTogle] = useState<boolean>(true)
-  const [rainTogle, setRainTogle] = useState<boolean>(true)
-
+  const [birdTogleState, setBirdTogleState] = useState<boolean>(true)
+  const [rainTogleState, setRainTogleState] = useState<boolean>(true)
 
   useEffect(() => {
     const ctx = new AudioContext();
@@ -68,7 +67,6 @@ export default function AmbientMixer() {
     <>
       <div className="p-40">
         <h1 className="text-xl font-bold mb-4">Ambient Sound Mixer</h1>
-
         <div className="flex">
           {/* 鳥の音 */}
           <input
@@ -78,20 +76,22 @@ export default function AmbientMixer() {
             onChange={(e) => setVolume("birds", parseFloat(e.target.value))}
           />
           <button
-            className={birdTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
-            onClick={() => loadAndPlaySound("birds", birds, 0.5)}>
+            className={`px-4 bg-slate-500 text-white rounded-full ml-2 ${birdTogleState ? "block" : "hidden"}`}
+            onClick={
+            () => {loadAndPlaySound("birds", birds, 0.5), setBirdTogleState(!birdTogleState)}
+            }>
             <span className="material-icons py-2">play_arrow</span>
           </button>
           <button
-            className={birdTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
-            onClick={() => stopSound("birds")}
+            className={`px-4 bg-slate-500 text-white rounded-full ml-2 ${birdTogleState ? "hidden" : "block"}`}
+            onClick={() => {stopSound("birds"), setBirdTogleState(!birdTogleState)}}
           >
             <span className="material-icons py-2">stop</span>
           </button>
         </div>
 
         <div className="flex mt-4">
-          {/* 鳥の音 */}
+          {/* 雨の音 */}
           <input
             type="range"
             min="0" max="1" step="0.01"
@@ -99,13 +99,13 @@ export default function AmbientMixer() {
             onChange={(e) => setVolume("rain", parseFloat(e.target.value))}
           />
           <button
-            className={rainTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
-            onClick={() => loadAndPlaySound("rain", rain, 0.5)}>
+            className={`px-4 bg-slate-500 text-white rounded-full ml-2 ${rainTogleState ? "block" : "hidden"}`}
+            onClick={() => {loadAndPlaySound("rain", rain, 0.5), setRainTogleState(!rainTogleState)}}>
             <span className="material-icons py-2">play_arrow</span>
           </button>
           <button
-            className={rainTogle ? "block": "hidden" + ("px-4 bg-slate-500 text-white rounded-full ml-2")}
-            onClick={() => stopSound("rain")}
+            className={`px-4 bg-slate-500 text-white rounded-full ml-2 ${rainTogleState ? "hidden" : "block"}`}
+            onClick={() => {stopSound("rain"), setRainTogleState(!rainTogleState)}}
           >
             <span className="material-icons py-2">stop</span>
           </button>
