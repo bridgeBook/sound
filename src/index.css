@@ -3,3 +3,12 @@
 body {
     background-color: #ECE0D2;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* クローム等はデフォルト設定を切る必要がある */
+    width: 20px;
+    height: 20px;
+    background: #a9bb9a;
+    border-radius: 50%;
+    cursor: pointer;
+  }

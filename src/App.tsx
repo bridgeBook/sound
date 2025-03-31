@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import birds from './sound/birds.mp3';
 import rain from './sound/rain.mp3';
+import './index.css'
 
 type Sound = {
   source: AudioBufferSourceNode;
@@ -12,6 +13,9 @@ export default function AmbientMixer() {
   const [sounds, setSounds] = useState<Record<string, Sound>>({});
   const [birdTogleState, setBirdTogleState] = useState<boolean>(true)
   const [rainTogleState, setRainTogleState] = useState<boolean>(true)
+  const [birdVolume, setBirdVolume] = useState(0.5); // 初期値 0.5 に設定
+  const [rainVolume, setRainVolume] = useState(0.5); // 初期値 0.5 に設定
+
 
   useEffect(() => {
     const ctx = new AudioContext();
@@ -63,42 +67,28 @@ export default function AmbientMixer() {
     }
   };
 
-  const [value, setValue] = useState(50); // 初期値 50 に設定
-
   // スライダーの値に基づいて背景を動的に設定
-  const backgroundStyle = {
-    background: `linear-gradient(to right, green ${value}%, rgba(0, 255, 0, 0.2) ${value}%)`,
-  };
+  const backgroundStyle = (value: any) => ({
+    background: `linear-gradient(to right, rgba(169, 187, 154, 0.9) ${value * 100}%, rgba(125 , 125 , 125 , 0.2) ${value * 100}%)`,
+  });
 
   return (
     <>
       <div className="flex justify-center">
         <div className="bg-[#F6F5F1] m-12 p-20 rounded-4xl shadow-2xl inset-shadow-sm">
 
-
-
-          <div className="w-full max-w-lg mx-auto mt-10">
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={value}
-              onChange={(e) => setValue(Number(e.target.value))} // スライダーの値を更新
-              className="w-full h-2 rounded-lg appearance-none cursor-pointer"
-              style={backgroundStyle} // スライダーの背景を動的に変更
-            />
-          </div>
-
-
           <h1 className="text-xl font-bold mb-4">Ambient Sound Mixer</h1>
-          <div className="flex">
+
+          <hr className="max-w-xs my-4 h-px bg-[#dddddd] border-0" />
+          <div className="flex items-center">
             {/* 鳥の音 */}
             <input
               type="range"
               min="0" max="1" step="0.01"
               defaultValue="0.5"
-              className="accent-[#a9bb9a] h-1 border-none"
-              onChange={(e) => setVolume("birds", parseFloat(e.target.value))}
+              style={backgroundStyle(birdVolume)}
+              className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+              onChange={(e) => { setVolume("birds", parseFloat(e.target.value)), setBirdVolume(Number(e.target.value)) }}
             />
             <button
               className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-2 ${birdTogleState ? "block" : "hidden"}`}
@@ -111,17 +101,21 @@ export default function AmbientMixer() {
               className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-2 ${birdTogleState ? "hidden" : "block"}`}
               onClick={() => { stopSound("birds"), setBirdTogleState(!birdTogleState) }}
             >
-              <span className="material-icons py-2">stop</span>
+              <span className="material-icons py-2">pause</span>
             </button>
           </div>
 
-          <div className="flex mt-4">
+          <hr className="max-w-xs my-4 h-px bg-[#dddddd] border-0" />
+
+          <div className="flex items-center">
             {/* 雨の音 */}
             <input
               type="range"
               min="0" max="1" step="0.01"
               defaultValue="0.5"
-              onChange={(e) => setVolume("rain", parseFloat(e.target.value))}
+              style={backgroundStyle(rainVolume)}
+              className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+              onChange={(e) => { setVolume("rain", parseFloat(e.target.value)), setRainVolume(Number(e.target.value)) }}
             />
             <button
               className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-2 ${rainTogleState ? "block" : "hidden"}`}
@@ -132,7 +126,7 @@ export default function AmbientMixer() {
               className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-2 ${rainTogleState ? "hidden" : "block"}`}
               onClick={() => { stopSound("rain"), setRainTogleState(!rainTogleState) }}
             >
-              <span className="material-icons py-2">stop</span>
+              <span className="material-icons py-2">pause</span>
             </button>
           </div>
         </div>
