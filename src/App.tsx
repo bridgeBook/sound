@@ -111,7 +111,7 @@ export default function AmbientMixer() {
 
           <div className="flex items-center">
             {/* 雨の音 */}
-            <img src="src\soundIcon\ame.png" className="h-12 object-scale-down mr-1" />
+            <img src="src\soundIcon\ame.JPG" className="h-12 object-scale-down mr-1" />
             <span className="mr-4">Rain sound</span>
             <input
               type="range"
