@@ -82,7 +82,7 @@ export default function AmbientMixer() {
           <hr className="max-w my-4 h-px bg-[#dddddd] border-0" />
           <div className="flex items-center">
             {/* 鳥の音 */}
-            <img src="src\soundIcon\tori.png" className="h-12 object-scale-down" />
+            <img src="src\tori.png" className="h-12 object-scale-down" />
             <span className="mr-4">Birds sound</span>
             <input
               type="range"
