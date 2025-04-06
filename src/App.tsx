@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import birds from './sound/birds.mp3';
 import rain from './sound/rain.mp3';
 import './index.css'
-import myImage from 'src\tori.png';
+import myImage from './tori.png';
 
 type Sound = {
   source: AudioBufferSourceNode;
