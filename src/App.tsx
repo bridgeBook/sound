@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
-import birds from './sound/birds.mp3';
-import rain from './sound/rain.mp3';
+import birds from './sound/スズメが鳴く朝.mp3';
+import rain from './sound/雨が降る2.mp3';
+import leaves from './sound/風に揺れる草木1.mp3';
+import street from './sound/街の道路.mp3';
 import './index.css'
-import myImage from './tori.png';
+import tori from './soundIcon/tori.png';
+import ame from './soundIcon/ame.png';
+import ki from './soundIcon/ki.png';
+import mati from './soundIcon/street.png';
 
 type Sound = {
   source: AudioBufferSourceNode;
@@ -14,9 +19,13 @@ export default function AmbientMixer() {
   const [sounds, setSounds] = useState<Record<string, Sound>>({});
   const [birdTogleState, setBirdTogleState] = useState<boolean>(true)
   const [rainTogleState, setRainTogleState] = useState<boolean>(true)
+  const [leavesTogleState, setLeavesTogleState] = useState<boolean>(true)
+  const [streetTogleState, setStreetTogleState] = useState<boolean>(true)
+
   const [birdVolume, setBirdVolume] = useState(0.5); // 初期値 0.5 に設定
   const [rainVolume, setRainVolume] = useState(0.5); // 初期値 0.5 に設定
-
+  const [leavesVolume, setLeavesVolume] = useState(0.5); // 初期値 0.5 に設定
+  const [streetVolume, setStreetVolume] = useState(0.5); // 初期値 0.5 に設定
 
   useEffect(() => {
     const ctx = new AudioContext();
@@ -83,9 +92,8 @@ export default function AmbientMixer() {
           <hr className="max-w my-4 h-px bg-[#dddddd] border-0" />
           <div className="flex items-center">
             {/* 鳥の音 */}
-            <img src={myImage} className="h-12 object-scale-down" />
-            <img src="src\tori.png" className="h-12 object-scale-down"/>
-            <span className="mr-4">Birds sound</span>
+            <img src={tori} className="h-12 object-scale-down mr-3" />
+            <span className="mr-4">Birds</span>
             <input
               type="range"
               min="0" max="1" step="0.01"
@@ -113,8 +121,8 @@ export default function AmbientMixer() {
 
           <div className="flex items-center">
             {/* 雨の音 */}
-            <img src="src\soundIcon\ame.JPG" className="h-12 object-scale-down mr-1" />
-            <span className="mr-4">Rain sound</span>
+            <img src={ame} className="h-12 object-scale-down mr-4" />
+            <span className="mr-4">Rain</span>
             <input
               type="range"
               min="0" max="1" step="0.01"
@@ -139,23 +147,25 @@ export default function AmbientMixer() {
           <hr className="max-w my-4 h-px bg-[#dddddd] border-0" />
 
           <div className="flex items-center">
-            {/* 雨の音 */}
+            {/* 木の音 */}
+            <img src={ki} className="h-12 object-scale-down mr-1" />
+            <span className="mr-4">leaves</span>
             <input
               type="range"
               min="0" max="1" step="0.01"
               defaultValue="0.5"
-              style={backgroundStyle(rainVolume)}
+              style={backgroundStyle(leavesVolume)}
               className="w-60 h-2 rounded-lg appearance-none cursor-pointer"
-              onChange={(e) => { setVolume("rain", parseFloat(e.target.value)), setRainVolume(Number(e.target.value)) }}
+              onChange={(e) => { setVolume("leaves", parseFloat(e.target.value)), setLeavesVolume(Number(e.target.value)) }}
             />
             <button
-              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${rainTogleState ? "block" : "hidden"}`}
-              onClick={() => { loadAndPlaySound("rain", rain, 0.5), setRainTogleState(!rainTogleState) }}>
+              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${leavesTogleState ? "block" : "hidden"}`}
+              onClick={() => { loadAndPlaySound("leaves", leaves, 0.5), setLeavesTogleState(!leavesTogleState) }}>
               <span className="material-icons py-2">play_arrow</span>
             </button>
             <button
-              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${rainTogleState ? "hidden" : "block"}`}
-              onClick={() => { stopSound("rain"), setRainTogleState(!rainTogleState) }}
+              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${leavesTogleState ? "hidden" : "block"}`}
+              onClick={() => { stopSound("leaves"), setLeavesTogleState(!leavesTogleState) }}
             >
               <span className="material-icons py-2">pause</span>
             </button>
@@ -164,23 +174,25 @@ export default function AmbientMixer() {
           <hr className="max-w my-4 h-px bg-[#dddddd] border-0" />
 
           <div className="flex items-center">
-            {/* 雨の音 */}
+            {/* 街の音 */}
+            <img src={mati} className="h-12 object-scale-down mr-2" />
+            <span className="mr-4">street</span>
             <input
               type="range"
               min="0" max="1" step="0.01"
               defaultValue="0.5"
-              style={backgroundStyle(rainVolume)}
+              style={backgroundStyle(streetVolume)}
               className="w-60 h-2 rounded-lg appearance-none cursor-pointer"
-              onChange={(e) => { setVolume("rain", parseFloat(e.target.value)), setRainVolume(Number(e.target.value)) }}
+              onChange={(e) => { setVolume("street", parseFloat(e.target.value)), setStreetVolume(Number(e.target.value)) }}
             />
             <button
-              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${rainTogleState ? "block" : "hidden"}`}
-              onClick={() => { loadAndPlaySound("rain", rain, 0.5), setRainTogleState(!rainTogleState) }}>
+              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${streetTogleState ? "block" : "hidden"}`}
+              onClick={() => { loadAndPlaySound("street", street, 0.5), setStreetTogleState(!streetTogleState) }}>
               <span className="material-icons py-2">play_arrow</span>
             </button>
             <button
-              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${rainTogleState ? "hidden" : "block"}`}
-              onClick={() => { stopSound("rain"), setRainTogleState(!rainTogleState) }}
+              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${streetTogleState ? "hidden" : "block"}`}
+              onClick={() => { stopSound("street"), setStreetTogleState(!streetTogleState) }}
             >
               <span className="material-icons py-2">pause</span>
             </button>
