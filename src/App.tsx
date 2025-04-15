@@ -197,31 +197,6 @@ export default function AmbientMixer() {
               <span className="material-icons py-2">pause</span>
             </button>
           </div>
-
-          <hr className="max-w my-4 h-px bg-[#dddddd] border-0" />
-
-          <div className="flex items-center">
-            {/* 雨の音 */}
-            <input
-              type="range"
-              min="0" max="1" step="0.01"
-              defaultValue="0.5"
-              style={backgroundStyle(rainVolume)}
-              className="w-60 h-2 rounded-lg appearance-none cursor-pointer"
-              onChange={(e) => { setVolume("rain", parseFloat(e.target.value)), setRainVolume(Number(e.target.value)) }}
-            />
-            <button
-              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${rainTogleState ? "block" : "hidden"}`}
-              onClick={() => { loadAndPlaySound("rain", rain, 0.5), setRainTogleState(!rainTogleState) }}>
-              <span className="material-icons py-2">play_arrow</span>
-            </button>
-            <button
-              className={`px-4 bg-[#a9bb9a] text-white rounded-full ml-6 ${rainTogleState ? "hidden" : "block"}`}
-              onClick={() => { stopSound("rain"), setRainTogleState(!rainTogleState) }}
-            >
-              <span className="material-icons py-2">pause</span>
-            </button>
-          </div>
         </div>
       </div>
     </>
